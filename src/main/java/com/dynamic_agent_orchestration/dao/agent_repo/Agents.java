@@ -8,5 +8,5 @@ import java.util.Map;
 
 @Component
 public class Agents {
-    final static Map<String, ChatClient> agentCollection = new HashMap<>();
+    final static Map<String, AgentInstance> agentCollection = new HashMap<>();
 }

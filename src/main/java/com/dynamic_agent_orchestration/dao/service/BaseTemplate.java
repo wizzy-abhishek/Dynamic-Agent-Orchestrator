@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 public class BaseTemplate {
 
     public static ChatClient chatClientTemplate(ChatModel chatModel, String refinedPrompt){
-        return ChatClient.builder(chatModel).defaultSystem(refinedPrompt).build();
+        return ChatClient
+                .builder(chatModel)
+                .defaultSystem(refinedPrompt)
+                .build();
     }
 }
