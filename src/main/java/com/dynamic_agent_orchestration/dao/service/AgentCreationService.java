@@ -11,16 +11,28 @@ import org.springframework.stereotype.Service;
 public class AgentCreationService {
 
     private final ChatModel chatModel;
+    private final ValidateAgentExistenceService validatorService;
 
-    public AgentCreationService(ChatModel chatModel) {
+    public AgentCreationService(ChatModel chatModel, ValidateAgentExistenceService validatorService) {
         this.chatModel = chatModel;
+        this.validatorService = validatorService;
     }
 
     public String assembleAgents(UserRequestDTO userRequestDTO) {
         String refinedPrompt = refineUserDescription(userRequestDTO.getAgentTask());
+        for (AgentInstance existingAgent : Agents.agentCollection.values()) {
+
+            boolean isDuplicate = validatorService
+                    .validateAgentAsync(refinedPrompt, existingAgent.desc())
+                    .join();
+
+            if (isDuplicate) {
+                System.out.println("Found duplicate agent! Reusing: " + existingAgent.name());
+                return existingAgent.agent().prompt("Hello " + existingAgent.name()).call().content();
+            }
+        }
         ChatClient baseClient = BaseTemplate.chatClientTemplate(chatModel, refinedPrompt);
         String appropriateAgentName = getAppropriateAgentName(refinedPrompt);
-        System.out.println(appropriateAgentName);
         AgentInstance agentInstance = new AgentInstance("", appropriateAgentName, refinedPrompt, baseClient);
         Agents.agentCollection.put(agentInstance.name(), agentInstance);
         return baseClient.prompt("Hello ".concat(agentInstance.name())).call().content();
