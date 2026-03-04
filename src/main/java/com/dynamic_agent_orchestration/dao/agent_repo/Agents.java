@@ -7,5 +7,5 @@ import java.util.Map;
 
 @Component
 public class Agents {
-    final static Map<String, AgentInstance> agentCollection = new HashMap<>();
+    public final static Map<String, AgentInstance> agentCollection = new HashMap<>();
 }
