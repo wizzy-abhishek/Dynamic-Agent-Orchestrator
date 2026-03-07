@@ -6,6 +6,7 @@ import com.dynamic_agent_orchestration.dao.agent_repo.BaseAgentTemplate;
 import com.dynamic_agent_orchestration.dao.user_request_dto.UserRequestDTO;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.model.ChatModel;
+import org.springframework.ai.ollama.api.OllamaChatOptions;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,7 +15,8 @@ public class AgentCreationService {
     private final ChatModel chatModel;
     private final ValidateAgentExistenceService validatorService;
 
-    public AgentCreationService(ChatModel chatModel, ValidateAgentExistenceService validatorService) {
+    public AgentCreationService(ChatModel chatModel,
+                                ValidateAgentExistenceService validatorService) {
         this.chatModel = chatModel;
         this.validatorService = validatorService;
     }
@@ -32,7 +34,10 @@ public class AgentCreationService {
                 return existingAgent.agent().prompt("Hello " + existingAgent.name()).call().content();
             }
         }
-        ChatClient baseClient = BaseAgentTemplate.chatClientTemplate(chatModel, refinedPrompt);
+        ChatClient baseClient = BaseAgentTemplate.chatClientTemplate(chatModel,
+                refinedPrompt,
+                OllamaChatOptions.builder().temperature(1.00).build()); // TODO: Loose-couple the model
+
         String appropriateAgentName = getAppropriateAgentName(refinedPrompt);
         AgentInstance agentInstance = new AgentInstance("", appropriateAgentName, refinedPrompt, baseClient);
         Agents.agentCollection.put(agentInstance.name(), agentInstance);

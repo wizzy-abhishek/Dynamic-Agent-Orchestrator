@@ -4,6 +4,9 @@ import com.dynamic_agent_orchestration.dao.agent_repo.AgentInstance;
 import com.dynamic_agent_orchestration.dao.agent_repo.Agents;
 import com.dynamic_agent_orchestration.dao.user_request_dto.TaskDTO;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.model.ChatModel;
+import org.springframework.ai.chat.prompt.ChatOptions;
+import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -12,10 +15,10 @@ import java.util.Map;
 public class TaskAgentOrchestratorService {
 
     private final Map<String, AgentInstance> agents = Agents.agentCollection;
-    private final ChatClient.Builder chatClientBuilder;
+    private final ChatModel chatModel;
 
-    public TaskAgentOrchestratorService(ChatClient.Builder chatClientBuilder) {
-        this.chatClientBuilder = chatClientBuilder;
+    public TaskAgentOrchestratorService(ChatModel chatModel) {
+        this.chatModel = chatModel;
     }
 
     public String taskAllocator(TaskDTO taskDTO) {
@@ -37,7 +40,11 @@ public class TaskAgentOrchestratorService {
             2. If NO agent can handle the task, reply with EXACTLY "UNASSIGNED". Do not apologize. Do not attempt to answer the user's prompt yourself.
             """.formatted(agentAndDesc.toString());
 
-        String routingDecision = chatClientBuilder
+        String routingDecision = ChatClient.builder(chatModel)
+                .defaultOptions(ChatOptions
+                        .builder()
+                        .temperature(0.1)
+                        .build())
                 .defaultSystem(agentPrompt)
                 .build()
                 .prompt()
