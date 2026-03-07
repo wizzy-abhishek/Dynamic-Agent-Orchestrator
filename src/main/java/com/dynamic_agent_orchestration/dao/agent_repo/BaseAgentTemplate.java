@@ -5,7 +5,7 @@ import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BaseTemplate {
+public class BaseAgentTemplate {
 
     public static ChatClient chatClientTemplate(ChatModel chatModel, String refinedPrompt){
         return ChatClient
