@@ -9,42 +9,46 @@ import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+import java.util.Optional;
+
 @Service
 public class AgentCreationService {
 
-    private final ChatModel chatModel;
+    private final Map<String, ChatModel> modelRegister;
     private final ValidateAgentExistenceService validatorService;
 
-    public AgentCreationService(ChatModel chatModel,
+    public AgentCreationService(Map<String, ChatModel> modelRegister,
                                 ValidateAgentExistenceService validatorService) {
-        this.chatModel = chatModel;
+        this.modelRegister = modelRegister;
         this.validatorService = validatorService;
     }
 
     public String assembleAgents(UserRequestDTO userRequestDTO) {
+
         String refinedPrompt = refineUserDescription(userRequestDTO.getAgentTask());
+
         for (AgentInstance existingAgent : Agents.agentCollection.values()) {
 
             boolean isDuplicate = validatorService
                     .validateAgentAsync(refinedPrompt, existingAgent.desc())
                     .join();
 
-            if (isDuplicate) {
-                System.out.println("Found duplicate agent! Reusing: " + existingAgent.name());
-                return existingAgent.agent().prompt("Hello " + existingAgent.name()).call().content();
-            }
+            if (isDuplicate) return "Agent Exists and ready to work";
         }
 
-        ChatClient baseClient = BaseAgentTemplate.chatClientTemplate(chatModel, // TODO: Loose-couple the model
+        ChatModel modelUsedInAgent = resolveModel(userRequestDTO.getModelName());
+
+        ChatClient baseClient = BaseAgentTemplate.chatClientTemplate(modelUsedInAgent,
                 refinedPrompt,
-                ChatOptions.builder().temperature(0.1).build());
+                generateChatOption(userRequestDTO.getTemperature()));
 
         String appropriateAgentName = getAppropriateAgentName(refinedPrompt);
-        AgentInstance agentInstance = new AgentInstance("",
-                appropriateAgentName,
+
+        AgentInstance agentInstance = new AgentInstance( appropriateAgentName,
                 refinedPrompt,
                 baseClient,
-                chatModel.getClass().getSimpleName());
+                modelUsedInAgent.getClass().getSimpleName());
 
         Agents.agentCollection.put(agentInstance.name(), agentInstance);
         return baseClient.prompt("Hello ".concat(agentInstance.name())).call().content();
@@ -56,7 +60,7 @@ public class AgentCreationService {
                 You only task is to refine the prompt that can be use to create an agent.
                 """;
         ChatClient client = ChatClient
-                .builder(chatModel)
+                .builder(modelRegister.get("openai"))
                 .defaultSystem(defaultPrompt)
                 .build();
 
@@ -73,7 +77,7 @@ public class AgentCreationService {
                 Name should be readable for example: agent_convert_currency, etc.
                 \s""";
         ChatClient client = ChatClient
-                .builder(chatModel)
+                .builder(modelRegister.get("openai"))
                 .defaultSystem(defaultPrompt)
                 .build();
 
@@ -81,6 +85,20 @@ public class AgentCreationService {
                 .prompt(desc)
                 .call()
                 .content();
+    }
+
+    private ChatOptions generateChatOption (Double temperature){
+        return ChatOptions
+                .builder()
+                .temperature(Optional
+                        .ofNullable(temperature)
+                        .orElse(0.3))
+                .build();
+    }
+
+    private ChatModel resolveModel(String modelName) {
+        return Optional.ofNullable(modelRegister.get(modelName))
+                .orElse(modelRegister.get("openai"));
     }
 
 }
