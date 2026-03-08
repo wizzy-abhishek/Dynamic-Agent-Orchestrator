@@ -5,4 +5,5 @@ import org.springframework.ai.chat.client.ChatClient;
 public record AgentInstance(String id,
                             String name,
                             String desc,
-                            ChatClient agent) {}
+                            ChatClient agent,
+                            String llm) {}

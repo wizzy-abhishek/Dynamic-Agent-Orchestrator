@@ -6,7 +6,7 @@ import com.dynamic_agent_orchestration.dao.agent_repo.BaseAgentTemplate;
 import com.dynamic_agent_orchestration.dao.user_request_dto.UserRequestDTO;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.model.ChatModel;
-import org.springframework.ai.ollama.api.OllamaChatOptions;
+import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -34,12 +34,18 @@ public class AgentCreationService {
                 return existingAgent.agent().prompt("Hello " + existingAgent.name()).call().content();
             }
         }
-        ChatClient baseClient = BaseAgentTemplate.chatClientTemplate(chatModel,
+
+        ChatClient baseClient = BaseAgentTemplate.chatClientTemplate(chatModel, // TODO: Loose-couple the model
                 refinedPrompt,
-                OllamaChatOptions.builder().temperature(1.00).build()); // TODO: Loose-couple the model
+                ChatOptions.builder().temperature(0.1).build());
 
         String appropriateAgentName = getAppropriateAgentName(refinedPrompt);
-        AgentInstance agentInstance = new AgentInstance("", appropriateAgentName, refinedPrompt, baseClient);
+        AgentInstance agentInstance = new AgentInstance("",
+                appropriateAgentName,
+                refinedPrompt,
+                baseClient,
+                chatModel.getClass().getSimpleName());
+
         Agents.agentCollection.put(agentInstance.name(), agentInstance);
         return baseClient.prompt("Hello ".concat(agentInstance.name())).call().content();
     }
