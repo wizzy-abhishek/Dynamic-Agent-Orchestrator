@@ -1,0 +1,33 @@
+2026-03-11T19:04:58.835+05:30  INFO 4944 --- [dao] [main] c.d.dao.DaoApplication                   : Starting DaoApplication using Java 21.0.7 with PID 4944 (/Users/abhishekanand/Desktop/dao/target/classes started by abhishekanand in /Users/abhishekanand/Desktop/dao)
+2026-03-11T19:04:58.837+05:30  INFO 4944 --- [dao] [main] c.d.dao.DaoApplication                   : No active profile set, falling back to 1 default profile: "default"
+2026-03-11T19:04:59.204+05:30  INFO 4944 --- [dao] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-11T19:04:59.214+05:30  INFO 4944 --- [dao] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 6 ms. Found 0 JPA repository interfaces.
+2026-03-11T19:04:59.477+05:30  INFO 4944 --- [dao] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-03-11T19:04:59.485+05:30  INFO 4944 --- [dao] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-11T19:04:59.485+05:30  INFO 4944 --- [dao] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-11T19:04:59.515+05:30  INFO 4944 --- [dao] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 656 ms
+2026-03-11T19:04:59.607+05:30  INFO 4944 --- [dao] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-11T19:04:59.630+05:30  INFO 4944 --- [dao] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-03-11T19:04:59.814+05:30  INFO 4944 --- [dao] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-11T19:04:59.822+05:30  WARN 4944 --- [dao] [main] org.hibernate.orm.deprecation            : HHH90000021: Encountered deprecated setting [hibernate.temp.use_jdbc_metadata_defaults], use [hibernate.boot.allow_jdbc_metadata_access] instead
+2026-03-11T19:04:59.829+05:30  WARN 4944 --- [dao] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-11T19:04:59.836+05:30  INFO 4944 --- [dao] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [undefined/unknown]
+	Database driver: undefined/unknown
+	Database dialect: PostgreSQLDialect
+	Database version: 13.0
+	Default catalog/schema: unknown/unknown
+	Autocommit mode: undefined/unknown
+	Isolation level: <unknown>
+	JDBC fetch size: undefined/unknown
+	Pool: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-11T19:05:00.018+05:30  INFO 4944 --- [dao] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-11T19:05:00.024+05:30  INFO 4944 --- [dao] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-11T19:05:00.242+05:30  WARN 4944 --- [dao] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-11T19:05:00.412+05:30  INFO 4944 --- [dao] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-03-11T19:05:00.417+05:30  INFO 4944 --- [dao] [main] c.d.dao.DaoApplication                   : Started DaoApplication in 1.819 seconds (process running for 2.041)
+2026-03-11T19:25:54.952+05:30  INFO 4944 --- [dao] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-11T19:25:56.960+05:30  INFO 4944 --- [dao] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-11T19:25:56.969+05:30  INFO 4944 --- [dao] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'

@@ -1,6 +1,30 @@
+logging:
+  file:
+    name: logs/application.log
+  level:
+    root: INFO
+
 spring:
+  main:
+    banner-mode: off
   application:
     name: dao
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/bootdb
+    username: admin
+    password: password
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        temp.use_jdbc_metadata_defaults: false
+
   ai:
     openai:
       api-key: ${OPENAI_API_KEY}
