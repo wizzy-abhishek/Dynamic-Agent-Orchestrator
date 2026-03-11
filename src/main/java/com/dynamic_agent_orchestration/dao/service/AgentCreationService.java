@@ -3,6 +3,8 @@ package com.dynamic_agent_orchestration.dao.service;
 import com.dynamic_agent_orchestration.dao.agent_repo.AgentInstance;
 import com.dynamic_agent_orchestration.dao.agent_repo.Agents;
 import com.dynamic_agent_orchestration.dao.agent_repo.BaseAgentTemplate;
+import com.dynamic_agent_orchestration.dao.entity.AgentStructureEntity;
+import com.dynamic_agent_orchestration.dao.repository.AgentRepository;
 import com.dynamic_agent_orchestration.dao.user_request_dto.UserRequestDTO;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.model.ChatModel;
@@ -17,11 +19,14 @@ public class AgentCreationService {
 
     private final Map<String, ChatModel> modelRegister;
     private final ValidateAgentExistenceService validatorService;
+    private final AgentRepository agentRepository;
 
     public AgentCreationService(Map<String, ChatModel> modelRegister,
-                                ValidateAgentExistenceService validatorService) {
+                                ValidateAgentExistenceService validatorService,
+                                AgentRepository agentRepository) {
         this.modelRegister = modelRegister;
         this.validatorService = validatorService;
+        this.agentRepository = agentRepository;
     }
 
     public String assembleAgents(UserRequestDTO userRequestDTO) {
@@ -29,7 +34,6 @@ public class AgentCreationService {
         String refinedPrompt = refineUserDescription(userRequestDTO.getAgentTask());
 
         for (AgentInstance existingAgent : Agents.agentCollection.values()) {
-
             boolean isDuplicate = validatorService
                     .validateAgentAsync(refinedPrompt, existingAgent.desc())
                     .join();
@@ -38,17 +42,18 @@ public class AgentCreationService {
         }
 
         ChatModel modelUsedInAgent = resolveModel(userRequestDTO.getModelName());
+        var chatOption = generateChatOption(userRequestDTO.getTemperature());
 
         ChatClient baseClient = BaseAgentTemplate.chatClientTemplate(modelUsedInAgent,
-                refinedPrompt,
-                generateChatOption(userRequestDTO.getTemperature()));
+                refinedPrompt, chatOption);
 
         String appropriateAgentName = getAppropriateAgentName(refinedPrompt);
-
+        String llm = modelUsedInAgent.getClass().getSimpleName();
         AgentInstance agentInstance = new AgentInstance( appropriateAgentName,
-                refinedPrompt,
-                baseClient,
-                modelUsedInAgent.getClass().getSimpleName());
+                refinedPrompt, baseClient, llm);
+
+        agentRepository.save(new AgentStructureEntity(appropriateAgentName, refinedPrompt,
+                llm, chatOption.getTemperature()));
 
         Agents.agentCollection.put(agentInstance.name(), agentInstance);
         return baseClient.prompt("Hello ".concat(agentInstance.name())).call().content();

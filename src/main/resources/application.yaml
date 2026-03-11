@@ -11,7 +11,7 @@ spring:
     name: dao
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/bootdb
+    url: jdbc:postgresql://localhost:5432/dao
     username: admin
     password: password
     driver-class-name: org.postgresql.Driver
