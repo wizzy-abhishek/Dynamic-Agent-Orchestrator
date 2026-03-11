@@ -30,4 +30,20 @@ public class AgentStructureEntity {
         this.llm = llm;
         this.temperature = temperature;
     }
+
+    public String getAgentName() {
+        return agentName;
+    }
+
+    public String getAgentDesc() {
+        return agentDesc;
+    }
+
+    public String getLlm() {
+        return llm;
+    }
+
+    public Double getTemperature() {
+        return temperature;
+    }
 }
