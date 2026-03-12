@@ -26,6 +26,9 @@ spring:
         temp.use_jdbc_metadata_defaults: false
 
   ai:
+    vectorstore:
+      pgvector:
+        initialize-schema: true
     openai:
       api-key: ${OPENAI_API_KEY}
   ollama:
