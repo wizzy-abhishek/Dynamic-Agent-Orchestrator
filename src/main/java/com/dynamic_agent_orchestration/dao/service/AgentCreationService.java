@@ -89,7 +89,11 @@ public class AgentCreationService {
         AgentInstance agentInstance = new AgentInstance(appropriateAgentName, refinedPrompt, baseClient, llmName);
 
         if(!userRequestDTO.getTemporary()){
-            agentRepository.save(new AgentStructureEntity(appropriateAgentName, refinedPrompt, llmName, chatOption.getTemperature()));
+            agentRepository.save(new AgentStructureEntity(appropriateAgentName,
+                    refinedPrompt,
+                    llmName,
+                    chatOption.getTemperature(),
+                    !userRequestDTO.getTemporary()));
         }
 
         Agents.agentCollection.put(agentInstance.name(), agentInstance);

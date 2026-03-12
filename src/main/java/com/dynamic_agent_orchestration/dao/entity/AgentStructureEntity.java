@@ -21,14 +21,17 @@ public class AgentStructureEntity {
 
     private Double temperature;
 
+    private boolean hasVectorStore;
+
     public AgentStructureEntity() {
     }
 
-    public AgentStructureEntity(String agentName, String agentDesc, String llm, Double temperature) {
+    public AgentStructureEntity(String agentName, String agentDesc, String llm, Double temperature, boolean hasVectorStore) {
         this.agentName = agentName;
         this.agentDesc = agentDesc;
         this.llm = llm;
         this.temperature = temperature;
+        this.hasVectorStore = hasVectorStore;
     }
 
     public String getAgentName() {
@@ -45,5 +48,9 @@ public class AgentStructureEntity {
 
     public Double getTemperature() {
         return temperature;
+    }
+
+    public boolean hasVectorStore() {
+        return hasVectorStore;
     }
 }
