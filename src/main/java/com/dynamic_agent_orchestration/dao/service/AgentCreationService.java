@@ -6,6 +6,7 @@ import com.dynamic_agent_orchestration.dao.agent_repo.BaseAgentTemplate;
 import com.dynamic_agent_orchestration.dao.entity.AgentStructureEntity;
 import com.dynamic_agent_orchestration.dao.repository.AgentRepository;
 import com.dynamic_agent_orchestration.dao.service.enums.EmbeddingModelPair;
+import com.dynamic_agent_orchestration.dao.service.interfaces.PromptRefineryService;
 import com.dynamic_agent_orchestration.dao.user_request_dto.UserRequestDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,16 +44,19 @@ public class AgentCreationService {
     private final AgentRepository agentRepository;
     private final Map<String, EmbeddingModel> embeddingModels;
     private final JdbcTemplate jdbcTemplate;
+    private final PromptRefineryService promptRefineryService;
 
     public AgentCreationService(Map<String, ChatModel> modelRegister,
                                 AgentRepository agentRepository,
                                 Map<String, EmbeddingModel> embeddingModels,
-                                JdbcTemplate jdbcTemplate) {
+                                JdbcTemplate jdbcTemplate,
+                                PromptRefineryService promptRefineryService) {
 
         this.modelRegister = modelRegister;
         this.agentRepository = agentRepository;
         this.embeddingModels = embeddingModels;
         this.jdbcTemplate = jdbcTemplate;
+        this.promptRefineryService = promptRefineryService;
     }
 
     public String assembleAgents(UserRequestDTO userRequestDTO, MultipartFile file) {
@@ -69,8 +73,8 @@ public class AgentCreationService {
             }
         }
 
-        String refinedPrompt = refineUserDescription(userRequestDTO.getAgentTask() + file_abstract);
-        String appropriateAgentName = getAppropriateAgentName(refinedPrompt);
+        String refinedPrompt = promptRefineryService.refineUserDescription(userRequestDTO.getAgentTask() + file_abstract);
+        String appropriateAgentName = promptRefineryService.generateAgentName(refinedPrompt);
         String llmName = modelUsedInAgent.getClass().getSimpleName();
 
         List<Advisor> advisors = new ArrayList<>();
@@ -101,32 +105,9 @@ public class AgentCreationService {
         return baseClient.prompt("Hello ".concat(agentInstance.name())).call().content();
     }
 
-    private String refineUserDescription(String prompt) {
-        String defaultPrompt = """
-                You are an agent that refines the user prompt to generate a good prompt that is good for an agent.
-                Your only task is to refine the prompt that can be used to create an agent.
-                """;
-        ChatClient client = ChatClient
-                .builder(resolveModel(DEFAULT_MODEL))
-                .defaultSystem(defaultPrompt)
-                .build();
 
-        return client.prompt(prompt).call().content();
-    }
 
-    private String getAppropriateAgentName(String desc) {
-        String defaultPrompt = """
-                You will be provided an agent description, you have to name it properly.
-                Name it such that if in the future the description and the name of the agent are provided, you can differentiate if such an agent exists.
-                The name should be readable, for example: agent_convert_currency, etc.
-                """;
-        ChatClient client = ChatClient
-                .builder(resolveModel(DEFAULT_MODEL))
-                .defaultSystem(defaultPrompt)
-                .build();
 
-        return client.prompt(desc).call().content();
-    }
 
     private QuestionAnswerAdvisor extractFile(Resource file, String chatModelName, boolean temp, String agentName) {
         DocumentReader documentReader = new TikaDocumentReader(file);
