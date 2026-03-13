@@ -2,11 +2,17 @@ package com.dynamic_agent_orchestration.dao.service;
 
 import com.dynamic_agent_orchestration.dao.service.interfaces.PromptRefineryService;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.stereotype.Service;
-
 
 @Service
 public class LlmPromptRefineService implements PromptRefineryService {
+
+    private final ChatModel DEFAULT_CHAT_MODEL;
+
+    public LlmPromptRefineService(ChatModel defaultChatModel) {
+        DEFAULT_CHAT_MODEL = defaultChatModel;
+    }
 
     public String refineUserDescription(String prompt) {
         String defaultPrompt = """
@@ -14,7 +20,7 @@ public class LlmPromptRefineService implements PromptRefineryService {
                 Your only task is to refine the prompt that can be used to create an agent.
                 """;
         ChatClient client = ChatClient
-                .builder(resolveModel(DEFAULT_MODEL))
+                .builder(DEFAULT_CHAT_MODEL)
                 .defaultSystem(defaultPrompt)
                 .build();
 
@@ -28,7 +34,7 @@ public class LlmPromptRefineService implements PromptRefineryService {
                 The name should be readable, for example: agent_convert_currency, etc.
                 """;
         ChatClient client = ChatClient
-                .builder(resolveModel(DEFAULT_MODEL))
+                .builder(DEFAULT_CHAT_MODEL)
                 .defaultSystem(defaultPrompt)
                 .build();
 

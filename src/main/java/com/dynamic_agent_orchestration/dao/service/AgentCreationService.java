@@ -6,7 +6,9 @@ import com.dynamic_agent_orchestration.dao.agent_repo.BaseAgentTemplate;
 import com.dynamic_agent_orchestration.dao.entity.AgentStructureEntity;
 import com.dynamic_agent_orchestration.dao.repository.AgentRepository;
 import com.dynamic_agent_orchestration.dao.service.enums.EmbeddingModelPair;
+import com.dynamic_agent_orchestration.dao.service.interfaces.DocumentIngestionToRAGService;
 import com.dynamic_agent_orchestration.dao.service.interfaces.PromptRefineryService;
+import com.dynamic_agent_orchestration.dao.service.interfaces.ProvideChatModelService;
 import com.dynamic_agent_orchestration.dao.user_request_dto.UserRequestDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,10 +18,7 @@ import org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvi
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.ai.document.Document;
-import org.springframework.ai.document.DocumentReader;
 import org.springframework.ai.embedding.EmbeddingModel;
-import org.springframework.ai.reader.tika.TikaDocumentReader;
-import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.ai.vectorstore.SimpleVectorStore;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.ai.vectorstore.pgvector.PgVectorStore;
@@ -32,41 +31,42 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class AgentCreationService {
 
     private static final Logger log = LoggerFactory.getLogger(AgentCreationService.class);
-    private static final String DEFAULT_MODEL = "openai";
 
-    private final Map<String, ChatModel> modelRegister;
     private final AgentRepository agentRepository;
     private final Map<String, EmbeddingModel> embeddingModels;
     private final JdbcTemplate jdbcTemplate;
     private final PromptRefineryService promptRefineryService;
+    private final DocumentIngestionToRAGService documentIngestionToRAGService;
+    private final ProvideChatModelService provideChatModelService;
 
-    public AgentCreationService(Map<String, ChatModel> modelRegister,
+    public AgentCreationService(
                                 AgentRepository agentRepository,
                                 Map<String, EmbeddingModel> embeddingModels,
                                 JdbcTemplate jdbcTemplate,
-                                PromptRefineryService promptRefineryService) {
+                                PromptRefineryService promptRefineryService,
+                                DocumentIngestionToRAGService documentIngestionToRAGService, ProvideChatModelService provideChatModelService) {
 
-        this.modelRegister = modelRegister;
         this.agentRepository = agentRepository;
         this.embeddingModels = embeddingModels;
         this.jdbcTemplate = jdbcTemplate;
         this.promptRefineryService = promptRefineryService;
+        this.documentIngestionToRAGService = documentIngestionToRAGService;
+        this.provideChatModelService = provideChatModelService;
     }
 
     public String assembleAgents(UserRequestDTO userRequestDTO, MultipartFile file) {
 
-        ChatModel modelUsedInAgent = resolveModel(userRequestDTO.getModelName());
+        ChatModel modelUsedInAgent = provideChatModelService.resolveModel(userRequestDTO.getModelName());
         String file_abstract = "";
 
         if (userRequestDTO.getAttachFile() && file != null && !file.isEmpty()) {
             try {
-                file_abstract = "The file contains " + extractAbstract(file.getResource());
+                file_abstract = "The file contains " + documentIngestionToRAGService.extractAbstract(file.getResource());
             } catch (Exception e) {
                 log.error("Failed to extract file abstract", e);
                 return "Error: Failed to read the attached file.";
@@ -105,16 +105,9 @@ public class AgentCreationService {
         return baseClient.prompt("Hello ".concat(agentInstance.name())).call().content();
     }
 
-
-
-
-
     private QuestionAnswerAdvisor extractFile(Resource file, String chatModelName, boolean temp, String agentName) {
-        DocumentReader documentReader = new TikaDocumentReader(file);
-        List<Document> documents = documentReader.get();
 
-        var tokenSplitter = new TokenTextSplitter();
-        var chunks = tokenSplitter.apply(documents);
+        List<Document> chunks = documentIngestionToRAGService.processAndSplitDocument(file);
 
         String embeddingModelName = EmbeddingModelPair.getEmbeddingName(chatModelName);
         EmbeddingModel embeddingModel = embeddingModels.get(embeddingModelName);
@@ -124,12 +117,9 @@ public class AgentCreationService {
         }
 
         VectorStore vectorStore;
-
         if (temp) {
-            log.info("Creating temporary SimpleVectorStore");
             vectorStore = SimpleVectorStore.builder(embeddingModel).build();
         } else {
-            log.info("Creating persistent PgVectorStore for table: {}", agentName);
             vectorStore = pgVectorStore(embeddingModel, agentName.toLowerCase().replaceAll("\\s+", "_"));
         }
 
@@ -141,23 +131,6 @@ public class AgentCreationService {
         return ChatOptions.builder()
                 .temperature(Optional.ofNullable(temperature).orElse(0.3))
                 .build();
-    }
-
-    private ChatModel resolveModel(String modelName) {
-        return Optional.ofNullable(modelName)
-                .map(modelRegister::get)
-                .orElseGet(() -> modelRegister.get(DEFAULT_MODEL));
-    }
-
-    private String extractAbstract(Resource resource) {
-        TikaDocumentReader reader = new TikaDocumentReader(resource);
-        List<Document> documents = reader.get();
-
-        String fullText = documents.stream()
-                .map(Document::getText)
-                .collect(Collectors.joining("\n"));
-
-        return fullText.substring(0, Math.min(fullText.length(), 4000));
     }
 
     private PgVectorStore pgVectorStore(EmbeddingModel embeddingModel, String fileName){

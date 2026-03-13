@@ -74,17 +74,14 @@ public class RestoringAgentsOnStartup {
                 .ofNullable(modelRegister.get(model))
                 .orElse(modelRegister.get("openai"));
 
-        // 1. Initialize the base builder
         ChatClient.Builder clientBuilder = ChatClient.builder(chatModel)
                 .defaultOptions(ChatOptions.builder()
                         .temperature(Optional.ofNullable(temp).orElse(0.3))
                         .build())
                 .defaultSystem(desc);
 
-        // 2. Determine the expected table name for this agent
         String tableName = agentName.toLowerCase().replaceAll("\\s+", "_");
 
-        // 3. Check if the table exists and conditionally add the advisor
         if (hasVectorStore) {
             log.info("Found existing vector store for agent {}. Attaching advisor.", agentName);
 
