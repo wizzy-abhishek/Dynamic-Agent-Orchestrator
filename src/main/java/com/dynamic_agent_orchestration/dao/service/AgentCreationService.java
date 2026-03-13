@@ -9,6 +9,7 @@ import com.dynamic_agent_orchestration.dao.service.enums.EmbeddingModelPair;
 import com.dynamic_agent_orchestration.dao.service.interfaces.DocumentIngestionToRAGService;
 import com.dynamic_agent_orchestration.dao.service.interfaces.PromptRefineryService;
 import com.dynamic_agent_orchestration.dao.service.interfaces.ProvideChatModelService;
+import com.dynamic_agent_orchestration.dao.service.interfaces.VectorStoreFactory;
 import com.dynamic_agent_orchestration.dao.user_request_dto.UserRequestDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,9 +20,7 @@ import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.embedding.EmbeddingModel;
-import org.springframework.ai.vectorstore.SimpleVectorStore;
 import org.springframework.ai.vectorstore.VectorStore;
-import org.springframework.ai.vectorstore.pgvector.PgVectorStore;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -38,22 +37,22 @@ public class AgentCreationService {
     private static final Logger log = LoggerFactory.getLogger(AgentCreationService.class);
 
     private final AgentRepository agentRepository;
+    private final VectorStoreFactory vectorStoreFactory;
     private final Map<String, EmbeddingModel> embeddingModels;
-    private final JdbcTemplate jdbcTemplate;
     private final PromptRefineryService promptRefineryService;
     private final DocumentIngestionToRAGService documentIngestionToRAGService;
     private final ProvideChatModelService provideChatModelService;
 
     public AgentCreationService(
-                                AgentRepository agentRepository,
-                                Map<String, EmbeddingModel> embeddingModels,
-                                JdbcTemplate jdbcTemplate,
-                                PromptRefineryService promptRefineryService,
-                                DocumentIngestionToRAGService documentIngestionToRAGService, ProvideChatModelService provideChatModelService) {
+            AgentRepository agentRepository, VectorStoreFactory vectorStoreFactory,
+            Map<String, EmbeddingModel> embeddingModels,
+            JdbcTemplate jdbcTemplate,
+            PromptRefineryService promptRefineryService,
+            DocumentIngestionToRAGService documentIngestionToRAGService, ProvideChatModelService provideChatModelService) {
 
         this.agentRepository = agentRepository;
+        this.vectorStoreFactory = vectorStoreFactory;
         this.embeddingModels = embeddingModels;
-        this.jdbcTemplate = jdbcTemplate;
         this.promptRefineryService = promptRefineryService;
         this.documentIngestionToRAGService = documentIngestionToRAGService;
         this.provideChatModelService = provideChatModelService;
@@ -116,12 +115,8 @@ public class AgentCreationService {
             throw new IllegalArgumentException("No valid embedding model found for: " + chatModelName);
         }
 
-        VectorStore vectorStore;
-        if (temp) {
-            vectorStore = SimpleVectorStore.builder(embeddingModel).build();
-        } else {
-            vectorStore = pgVectorStore(embeddingModel, agentName.toLowerCase().replaceAll("\\s+", "_"));
-        }
+        VectorStore vectorStore = temp ? vectorStoreFactory.createTemporaryStore(embeddingModel)
+                : vectorStoreFactory.createPersistentStore(embeddingModel, agentName);
 
         vectorStore.add(chunks);
         return QuestionAnswerAdvisor.builder(vectorStore).build();
@@ -131,24 +126,5 @@ public class AgentCreationService {
         return ChatOptions.builder()
                 .temperature(Optional.ofNullable(temperature).orElse(0.3))
                 .build();
-    }
-
-    private PgVectorStore pgVectorStore(EmbeddingModel embeddingModel, String fileName){
-        int dimensions = embeddingModel.embed("test").length;
-        PgVectorStore store = PgVectorStore
-                .builder(jdbcTemplate, embeddingModel)
-                .vectorTableName(fileName)
-                .dimensions(dimensions)
-                .initializeSchema(true)
-                .build();
-
-        try {
-            store.afterPropertiesSet(); // Instead of writing SQL to create, invoking this property to initialize
-        } catch (Exception e) {
-            log.error("Failed to initialize PgVector schema for table: {}", fileName, e);
-            throw new RuntimeException("Database initialization failed", e);
-        }
-
-        return store;
     }
 }
