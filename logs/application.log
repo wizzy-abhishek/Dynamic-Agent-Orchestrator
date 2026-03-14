@@ -329,3 +329,262 @@ Caused by: java.net.ConnectException: Connection refused
 2026-03-14T02:13:16.038+05:30  INFO 7427 --- [dao] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2026-03-14T02:13:16.043+05:30  INFO 7427 --- [dao] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2026-03-14T02:13:16.045+05:30  INFO 7427 --- [dao] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-03-14T09:58:22.365+05:30  INFO 1189 --- [dao] [main] c.d.dao.DaoApplication                   : Starting DaoApplication using Java 21.0.7 with PID 1189 (/Users/abhishekanand/Desktop/dao/target/classes started by abhishekanand in /Users/abhishekanand/Desktop/dao)
+2026-03-14T09:58:22.366+05:30  INFO 1189 --- [dao] [main] c.d.dao.DaoApplication                   : No active profile set, falling back to 1 default profile: "default"
+2026-03-14T09:58:22.880+05:30  INFO 1189 --- [dao] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-14T09:58:22.962+05:30  INFO 1189 --- [dao] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 77 ms. Found 1 JPA repository interface.
+2026-03-14T09:58:23.221+05:30  INFO 1189 --- [dao] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-03-14T09:58:23.230+05:30  INFO 1189 --- [dao] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-14T09:58:23.230+05:30  INFO 1189 --- [dao] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-14T09:58:23.321+05:30  INFO 1189 --- [dao] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 925 ms
+2026-03-14T09:58:23.425+05:30  INFO 1189 --- [dao] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-14T09:58:23.488+05:30  INFO 1189 --- [dao] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-03-14T09:58:23.769+05:30  INFO 1189 --- [dao] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-14T09:58:23.779+05:30  WARN 1189 --- [dao] [main] org.hibernate.orm.deprecation            : HHH90000021: Encountered deprecated setting [hibernate.temp.use_jdbc_metadata_defaults], use [hibernate.boot.allow_jdbc_metadata_access] instead
+2026-03-14T09:58:23.789+05:30  WARN 1189 --- [dao] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-14T09:58:23.801+05:30  INFO 1189 --- [dao] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [undefined/unknown]
+	Database driver: undefined/unknown
+	Database dialect: PostgreSQLDialect
+	Database version: 13.0
+	Default catalog/schema: unknown/unknown
+	Autocommit mode: undefined/unknown
+	Isolation level: <unknown>
+	JDBC fetch size: undefined/unknown
+	Pool: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-14T09:58:24.255+05:30  INFO 1189 --- [dao] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-14T09:58:24.267+05:30  INFO 1189 --- [dao] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-14T09:58:24.312+05:30  INFO 1189 --- [dao] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@2daa5092
+2026-03-14T09:58:24.313+05:30  INFO 1189 --- [dao] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-14T09:58:24.372+05:30  INFO 1189 --- [dao] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-14T09:58:24.668+05:30  INFO 1189 --- [dao] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-14T09:58:24.961+05:30  INFO 1189 --- [dao] [main] o.s.a.v.pgvector.PgVectorStore           : Using the vector table name: vector_store. Is empty: false
+2026-03-14T09:58:24.963+05:30  INFO 1189 --- [dao] [main] o.s.a.v.pgvector.PgVectorStore           : Initializing PGVectorStore schema for table: vector_store in schema: public
+2026-03-14T09:58:24.963+05:30  INFO 1189 --- [dao] [main] o.s.a.v.pgvector.PgVectorStore           : vectorTableValidationsEnabled false
+2026-03-14T09:58:29.526+05:30  WARN 1189 --- [dao] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-14T09:58:29.695+05:30  INFO 1189 --- [dao] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-03-14T09:58:29.700+05:30  INFO 1189 --- [dao] [main] c.d.dao.DaoApplication                   : Started DaoApplication in 7.799 seconds (process running for 8.128)
+2026-03-14T10:03:05.018+05:30  INFO 1189 --- [dao] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-14T10:03:05.019+05:30  INFO 1189 --- [dao] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-03-14T10:03:05.020+05:30  INFO 1189 --- [dao] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-03-14T10:03:05.054+05:30  INFO 1189 --- [dao] [http-nio-8080-exec-2] c.d.dao.controller.MainController        : Request to create an agent for: You are a agent answer question based on RGPV syllabus provided to you, you don't answer question outside that context. Do not hallicunate, answer based on the document provided
+2026-03-14T10:03:10.842+05:30  INFO 1189 --- [dao] [http-nio-8080-exec-2] .d.d.s.DocumentIngestionToRAGServiceImpl : Parsing and chunking document: 8th sem syllabus.pdf
+2026-03-14T10:03:11.067+05:30  INFO 1189 --- [dao] [http-nio-8080-exec-2] o.s.a.transformer.splitter.TextSplitter  : Splitting up document into 7 chunks.
+2026-03-14T10:03:11.069+05:30  INFO 1189 --- [dao] [http-nio-8080-exec-2] c.d.d.s.DefaultVectorStoreFactoryImpl    : Creating persistent PgVectorStore for table: agent_rgpv_syllabus_cs801_cs802a
+2026-03-14T10:03:13.554+05:30  INFO 1189 --- [dao] [http-nio-8080-exec-2] o.s.a.v.pgvector.PgVectorStore           : Using the vector table name: agent_rgpv_syllabus_cs801_cs802a. Is empty: false
+2026-03-14T10:03:13.555+05:30  INFO 1189 --- [dao] [http-nio-8080-exec-2] o.s.a.v.pgvector.PgVectorStore           : Initializing PGVectorStore schema for table: agent_rgpv_syllabus_cs801_cs802a in schema: public
+2026-03-14T10:03:13.555+05:30  INFO 1189 --- [dao] [http-nio-8080-exec-2] o.s.a.v.pgvector.PgVectorStore           : vectorTableValidationsEnabled false
+2026-03-14T10:05:28.079+05:30  INFO 1189 --- [dao] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-14T10:05:30.087+05:30  INFO 1189 --- [dao] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-14T10:05:30.093+05:30  INFO 1189 --- [dao] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-14T10:05:30.097+05:30  INFO 1189 --- [dao] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-03-14T10:05:30.099+05:30  INFO 1189 --- [dao] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-03-14T10:05:32.120+05:30  INFO 1306 --- [dao] [main] c.d.dao.DaoApplication                   : Starting DaoApplication using Java 21.0.7 with PID 1306 (/Users/abhishekanand/Desktop/dao/target/classes started by abhishekanand in /Users/abhishekanand/Desktop/dao)
+2026-03-14T10:05:32.122+05:30  INFO 1306 --- [dao] [main] c.d.dao.DaoApplication                   : No active profile set, falling back to 1 default profile: "default"
+2026-03-14T10:05:32.492+05:30  INFO 1306 --- [dao] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-14T10:05:32.564+05:30  INFO 1306 --- [dao] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 67 ms. Found 1 JPA repository interface.
+2026-03-14T10:05:32.804+05:30  INFO 1306 --- [dao] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-03-14T10:05:32.811+05:30  INFO 1306 --- [dao] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-14T10:05:32.811+05:30  INFO 1306 --- [dao] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-14T10:05:32.856+05:30  INFO 1306 --- [dao] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 712 ms
+2026-03-14T10:05:32.945+05:30  INFO 1306 --- [dao] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-14T10:05:32.971+05:30  INFO 1306 --- [dao] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-03-14T10:05:33.195+05:30  INFO 1306 --- [dao] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-14T10:05:33.204+05:30  WARN 1306 --- [dao] [main] org.hibernate.orm.deprecation            : HHH90000021: Encountered deprecated setting [hibernate.temp.use_jdbc_metadata_defaults], use [hibernate.boot.allow_jdbc_metadata_access] instead
+2026-03-14T10:05:33.211+05:30  WARN 1306 --- [dao] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-14T10:05:33.219+05:30  INFO 1306 --- [dao] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [undefined/unknown]
+	Database driver: undefined/unknown
+	Database dialect: PostgreSQLDialect
+	Database version: 13.0
+	Default catalog/schema: unknown/unknown
+	Autocommit mode: undefined/unknown
+	Isolation level: <unknown>
+	JDBC fetch size: undefined/unknown
+	Pool: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-14T10:05:33.612+05:30  INFO 1306 --- [dao] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-14T10:05:33.624+05:30  INFO 1306 --- [dao] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-14T10:05:33.665+05:30  INFO 1306 --- [dao] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@39a1e1e6
+2026-03-14T10:05:33.665+05:30  INFO 1306 --- [dao] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-14T10:05:33.698+05:30  INFO 1306 --- [dao] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-14T10:05:33.888+05:30  INFO 1306 --- [dao] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-14T10:05:34.102+05:30  INFO 1306 --- [dao] [main] o.s.a.v.pgvector.PgVectorStore           : Using the vector table name: vector_store. Is empty: false
+2026-03-14T10:05:34.103+05:30  INFO 1306 --- [dao] [main] o.s.a.v.pgvector.PgVectorStore           : Initializing PGVectorStore schema for table: vector_store in schema: public
+2026-03-14T10:05:34.103+05:30  INFO 1306 --- [dao] [main] o.s.a.v.pgvector.PgVectorStore           : vectorTableValidationsEnabled false
+2026-03-14T10:05:37.152+05:30  WARN 1306 --- [dao] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-14T10:05:37.282+05:30  INFO 1306 --- [dao] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-03-14T10:05:37.287+05:30  INFO 1306 --- [dao] [main] c.d.dao.DaoApplication                   : Started DaoApplication in 5.422 seconds (process running for 5.634)
+2026-03-14T10:06:57.206+05:30  INFO 1306 --- [dao] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-14T10:06:57.207+05:30  INFO 1306 --- [dao] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-03-14T10:06:57.208+05:30  INFO 1306 --- [dao] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-03-14T10:06:57.241+05:30  INFO 1306 --- [dao] [http-nio-8080-exec-2] c.d.dao.controller.MainController        : Request to create an agent for: You are a agent answer question based on RGPV 8th semester syllabus provided to you, you don't answer question outside that context. Do not hallicunate, answer based on the document provided
+2026-03-14T10:07:01.575+05:30  INFO 1306 --- [dao] [http-nio-8080-exec-2] .d.d.s.DocumentIngestionToRAGServiceImpl : Parsing and chunking document: 8th sem syllabus.pdf
+2026-03-14T10:07:02.353+05:30  INFO 1306 --- [dao] [http-nio-8080-exec-2] o.s.a.transformer.splitter.TextSplitter  : Splitting up document into 7 chunks.
+2026-03-14T10:07:02.354+05:30  INFO 1306 --- [dao] [http-nio-8080-exec-2] c.d.d.s.DefaultVectorStoreFactoryImpl    : Creating persistent PgVectorStore for table: agent_rgpv_8th_sem_syllabus_qa
+2026-03-14T10:07:02.932+05:30  INFO 1306 --- [dao] [http-nio-8080-exec-2] o.s.a.v.pgvector.PgVectorStore           : Using the vector table name: agent_rgpv_8th_sem_syllabus_qa. Is empty: false
+2026-03-14T10:07:02.932+05:30  INFO 1306 --- [dao] [http-nio-8080-exec-2] o.s.a.v.pgvector.PgVectorStore           : Initializing PGVectorStore schema for table: agent_rgpv_8th_sem_syllabus_qa in schema: public
+2026-03-14T10:07:02.932+05:30  INFO 1306 --- [dao] [http-nio-8080-exec-2] o.s.a.v.pgvector.PgVectorStore           : vectorTableValidationsEnabled false
+2026-03-14T11:07:01.405+05:30  WARN 1306 --- [dao] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=50m57s552ms).
+2026-03-14T11:53:00.015+05:30  INFO 1306 --- [dao] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-14T11:53:02.021+05:30  INFO 1306 --- [dao] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-14T11:53:02.024+05:30  INFO 1306 --- [dao] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-14T11:53:02.026+05:30  INFO 1306 --- [dao] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-03-14T11:53:02.027+05:30  INFO 1306 --- [dao] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-03-14T12:18:27.347+05:30  INFO 2106 --- [dao] [main] c.d.dao.DaoApplication                   : Starting DaoApplication using Java 21.0.7 with PID 2106 (/Users/abhishekanand/Desktop/dao/target/classes started by abhishekanand in /Users/abhishekanand/Desktop/dao)
+2026-03-14T12:18:27.348+05:30  INFO 2106 --- [dao] [main] c.d.dao.DaoApplication                   : No active profile set, falling back to 1 default profile: "default"
+2026-03-14T12:18:27.740+05:30  INFO 2106 --- [dao] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-14T12:18:27.817+05:30  INFO 2106 --- [dao] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 72 ms. Found 1 JPA repository interface.
+2026-03-14T12:18:28.062+05:30  INFO 2106 --- [dao] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-03-14T12:18:28.069+05:30  INFO 2106 --- [dao] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-14T12:18:28.069+05:30  INFO 2106 --- [dao] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-14T12:18:28.116+05:30  INFO 2106 --- [dao] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 744 ms
+2026-03-14T12:18:28.211+05:30  INFO 2106 --- [dao] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-14T12:18:28.237+05:30  INFO 2106 --- [dao] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-03-14T12:18:28.460+05:30  INFO 2106 --- [dao] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-14T12:18:28.469+05:30  WARN 2106 --- [dao] [main] org.hibernate.orm.deprecation            : HHH90000021: Encountered deprecated setting [hibernate.temp.use_jdbc_metadata_defaults], use [hibernate.boot.allow_jdbc_metadata_access] instead
+2026-03-14T12:18:28.478+05:30  WARN 2106 --- [dao] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-14T12:18:28.485+05:30  INFO 2106 --- [dao] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [undefined/unknown]
+	Database driver: undefined/unknown
+	Database dialect: PostgreSQLDialect
+	Database version: 13.0
+	Default catalog/schema: unknown/unknown
+	Autocommit mode: undefined/unknown
+	Isolation level: <unknown>
+	JDBC fetch size: undefined/unknown
+	Pool: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-14T12:18:28.889+05:30  INFO 2106 --- [dao] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-14T12:18:28.901+05:30  INFO 2106 --- [dao] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-14T12:18:28.944+05:30  INFO 2106 --- [dao] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@39a1e1e6
+2026-03-14T12:18:28.944+05:30  INFO 2106 --- [dao] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-14T12:18:28.982+05:30  INFO 2106 --- [dao] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-14T12:18:29.188+05:30  INFO 2106 --- [dao] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-14T12:18:29.407+05:30  INFO 2106 --- [dao] [main] o.s.a.v.pgvector.PgVectorStore           : Using the vector table name: vector_store. Is empty: false
+2026-03-14T12:18:29.408+05:30  INFO 2106 --- [dao] [main] o.s.a.v.pgvector.PgVectorStore           : Initializing PGVectorStore schema for table: vector_store in schema: public
+2026-03-14T12:18:29.408+05:30  INFO 2106 --- [dao] [main] o.s.a.v.pgvector.PgVectorStore           : vectorTableValidationsEnabled false
+2026-03-14T12:18:35.588+05:30  WARN 2106 --- [dao] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-14T12:18:35.737+05:30  INFO 2106 --- [dao] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-03-14T12:18:35.741+05:30  INFO 2106 --- [dao] [main] c.d.dao.DaoApplication                   : Started DaoApplication in 8.654 seconds (process running for 8.908)
+2026-03-14T12:18:46.452+05:30  INFO 2106 --- [dao] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-14T12:18:46.452+05:30  INFO 2106 --- [dao] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-03-14T12:18:46.453+05:30  INFO 2106 --- [dao] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-03-14T12:18:46.487+05:30  INFO 2106 --- [dao] [http-nio-8080-exec-2] c.d.dao.controller.MainController        : Request to create an agent for: You are a agent answer question based on RGPV 8th semester syllabus provided to you, you don't answer question outside that context. Do not hallicunate, answer based on the document provided
+2026-03-14T12:18:49.719+05:30  INFO 2106 --- [dao] [http-nio-8080-exec-2] .d.d.s.DocumentIngestionToRAGServiceImpl : Parsing and chunking document: 8th sem syllabus.pdf
+2026-03-14T12:18:50.609+05:30  INFO 2106 --- [dao] [http-nio-8080-exec-2] o.s.a.transformer.splitter.TextSplitter  : Splitting up document into 7 chunks.
+2026-03-14T12:18:50.611+05:30  INFO 2106 --- [dao] [http-nio-8080-exec-2] c.d.d.s.DefaultVectorStoreFactoryImpl    : Creating persistent PgVectorStore for table: agent_rgpv_8th_sem_syllabus_qa
+2026-03-14T12:18:51.399+05:30  INFO 2106 --- [dao] [http-nio-8080-exec-2] o.s.a.v.pgvector.PgVectorStore           : Using the vector table name: agent_rgpv_8th_sem_syllabus_qa. Is empty: false
+2026-03-14T12:18:51.399+05:30  INFO 2106 --- [dao] [http-nio-8080-exec-2] o.s.a.v.pgvector.PgVectorStore           : Initializing PGVectorStore schema for table: agent_rgpv_8th_sem_syllabus_qa in schema: public
+2026-03-14T12:18:51.400+05:30  INFO 2106 --- [dao] [http-nio-8080-exec-2] o.s.a.v.pgvector.PgVectorStore           : vectorTableValidationsEnabled false
+2026-03-14T12:19:20.789+05:30  INFO 2106 --- [dao] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-14T12:19:22.798+05:30  INFO 2106 --- [dao] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-14T12:19:22.803+05:30  INFO 2106 --- [dao] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-14T12:19:22.808+05:30  INFO 2106 --- [dao] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-03-14T12:19:22.810+05:30  INFO 2106 --- [dao] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-03-14T12:19:27.422+05:30  INFO 2142 --- [dao] [main] c.d.dao.DaoApplication                   : Starting DaoApplication using Java 21.0.7 with PID 2142 (/Users/abhishekanand/Desktop/dao/target/classes started by abhishekanand in /Users/abhishekanand/Desktop/dao)
+2026-03-14T12:19:27.423+05:30  INFO 2142 --- [dao] [main] c.d.dao.DaoApplication                   : No active profile set, falling back to 1 default profile: "default"
+2026-03-14T12:19:27.806+05:30  INFO 2142 --- [dao] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-14T12:19:27.883+05:30  INFO 2142 --- [dao] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 71 ms. Found 1 JPA repository interface.
+2026-03-14T12:19:28.122+05:30  INFO 2142 --- [dao] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-03-14T12:19:28.129+05:30  INFO 2142 --- [dao] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-14T12:19:28.130+05:30  INFO 2142 --- [dao] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-14T12:19:28.180+05:30  INFO 2142 --- [dao] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 733 ms
+2026-03-14T12:19:28.274+05:30  INFO 2142 --- [dao] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-14T12:19:28.302+05:30  INFO 2142 --- [dao] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-03-14T12:19:28.522+05:30  INFO 2142 --- [dao] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-14T12:19:28.531+05:30  WARN 2142 --- [dao] [main] org.hibernate.orm.deprecation            : HHH90000021: Encountered deprecated setting [hibernate.temp.use_jdbc_metadata_defaults], use [hibernate.boot.allow_jdbc_metadata_access] instead
+2026-03-14T12:19:28.541+05:30  WARN 2142 --- [dao] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-14T12:19:28.548+05:30  INFO 2142 --- [dao] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [undefined/unknown]
+	Database driver: undefined/unknown
+	Database dialect: PostgreSQLDialect
+	Database version: 13.0
+	Default catalog/schema: unknown/unknown
+	Autocommit mode: undefined/unknown
+	Isolation level: <unknown>
+	JDBC fetch size: undefined/unknown
+	Pool: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-14T12:19:28.954+05:30  INFO 2142 --- [dao] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-14T12:19:28.966+05:30  INFO 2142 --- [dao] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-14T12:19:29.009+05:30  INFO 2142 --- [dao] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@39a1e1e6
+2026-03-14T12:19:29.009+05:30  INFO 2142 --- [dao] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-14T12:19:29.049+05:30  INFO 2142 --- [dao] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-14T12:19:29.244+05:30  INFO 2142 --- [dao] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-14T12:19:29.455+05:30  INFO 2142 --- [dao] [main] o.s.a.v.pgvector.PgVectorStore           : Using the vector table name: vector_store. Is empty: false
+2026-03-14T12:19:29.456+05:30  INFO 2142 --- [dao] [main] o.s.a.v.pgvector.PgVectorStore           : Initializing PGVectorStore schema for table: vector_store in schema: public
+2026-03-14T12:19:29.457+05:30  INFO 2142 --- [dao] [main] o.s.a.v.pgvector.PgVectorStore           : vectorTableValidationsEnabled false
+2026-03-14T12:19:31.698+05:30  WARN 2142 --- [dao] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-14T12:19:31.838+05:30  INFO 2142 --- [dao] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-03-14T12:19:31.842+05:30  INFO 2142 --- [dao] [main] c.d.dao.DaoApplication                   : Started DaoApplication in 4.681 seconds (process running for 4.911)
+2026-03-14T12:19:31.967+05:30  INFO 2142 --- [dao] [main] c.d.d.s.RestoringAgentsOnStartup         : Found existing vector store for agent agent_rgpv_8th_sem_syllabus_qa. Attaching advisor.
+2026-03-14T12:19:32.401+05:30  INFO 2142 --- [dao] [main] o.s.a.v.pgvector.PgVectorStore           : Using the vector table name: agent_rgpv_8th_sem_syllabus_qa. Is empty: false
+2026-03-14T12:19:32.401+05:30  INFO 2142 --- [dao] [main] c.d.d.s.RestoringAgentsOnStartup         : Successfully restored agent: agent_rgpv_8th_sem_syllabus_qa
+2026-03-14T12:21:12.095+05:30  INFO 2142 --- [dao] [http-nio-8080-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-14T12:21:12.095+05:30  INFO 2142 --- [dao] [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-03-14T12:21:12.096+05:30  INFO 2142 --- [dao] [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-03-14T12:21:12.125+05:30  INFO 2142 --- [dao] [http-nio-8080-exec-3] c.d.dao.controller.MainController        : Request to create an agent for: You are a agent answer question based on sales data that is provided to you, you don't answer outside that data, you can't hellutinate and you have to answer on the details in that file when asked
+2026-03-14T12:21:15.183+05:30  INFO 2142 --- [dao] [http-nio-8080-exec-3] .d.d.s.DocumentIngestionToRAGServiceImpl : Parsing and chunking document: sales_75_rows.xlsx
+2026-03-14T12:21:15.785+05:30  INFO 2142 --- [dao] [http-nio-8080-exec-3] o.s.a.transformer.splitter.TextSplitter  : Splitting up document into 3 chunks.
+2026-03-14T12:21:15.785+05:30  INFO 2142 --- [dao] [http-nio-8080-exec-3] c.d.d.s.DefaultVectorStoreFactoryImpl    : Creating persistent PgVectorStore for table: agent_sales_data_inquiry
+2026-03-14T12:21:16.240+05:30  INFO 2142 --- [dao] [http-nio-8080-exec-3] o.s.a.v.pgvector.PgVectorStore           : Using the vector table name: agent_sales_data_inquiry. Is empty: false
+2026-03-14T12:21:16.241+05:30  INFO 2142 --- [dao] [http-nio-8080-exec-3] o.s.a.v.pgvector.PgVectorStore           : Initializing PGVectorStore schema for table: agent_sales_data_inquiry in schema: public
+2026-03-14T12:21:16.241+05:30  INFO 2142 --- [dao] [http-nio-8080-exec-3] o.s.a.v.pgvector.PgVectorStore           : vectorTableValidationsEnabled false
+2026-03-14T12:23:19.906+05:30  INFO 2142 --- [dao] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-14T12:39:45.419+05:30  INFO 2311 --- [dao] [main] c.d.dao.DaoApplication                   : Starting DaoApplication using Java 21.0.7 with PID 2311 (/Users/abhishekanand/Desktop/dao/target/classes started by abhishekanand in /Users/abhishekanand/Desktop/dao)
+2026-03-14T12:39:45.420+05:30  INFO 2311 --- [dao] [main] c.d.dao.DaoApplication                   : No active profile set, falling back to 1 default profile: "default"
+2026-03-14T12:39:45.808+05:30  INFO 2311 --- [dao] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-14T12:39:45.891+05:30  INFO 2311 --- [dao] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 77 ms. Found 1 JPA repository interface.
+2026-03-14T12:39:46.141+05:30  INFO 2311 --- [dao] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-03-14T12:39:46.148+05:30  INFO 2311 --- [dao] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-14T12:39:46.148+05:30  INFO 2311 --- [dao] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-14T12:39:46.196+05:30  INFO 2311 --- [dao] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 753 ms
+2026-03-14T12:39:46.291+05:30  INFO 2311 --- [dao] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-14T12:39:46.317+05:30  INFO 2311 --- [dao] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-03-14T12:39:46.531+05:30  INFO 2311 --- [dao] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-14T12:39:46.539+05:30  WARN 2311 --- [dao] [main] org.hibernate.orm.deprecation            : HHH90000021: Encountered deprecated setting [hibernate.temp.use_jdbc_metadata_defaults], use [hibernate.boot.allow_jdbc_metadata_access] instead
+2026-03-14T12:39:46.548+05:30  WARN 2311 --- [dao] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-14T12:39:46.555+05:30  INFO 2311 --- [dao] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [undefined/unknown]
+	Database driver: undefined/unknown
+	Database dialect: PostgreSQLDialect
+	Database version: 13.0
+	Default catalog/schema: unknown/unknown
+	Autocommit mode: undefined/unknown
+	Isolation level: <unknown>
+	JDBC fetch size: undefined/unknown
+	Pool: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-14T12:39:46.962+05:30  INFO 2311 --- [dao] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-14T12:39:46.974+05:30  INFO 2311 --- [dao] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-14T12:39:47.016+05:30  INFO 2311 --- [dao] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@2daa5092
+2026-03-14T12:39:47.016+05:30  INFO 2311 --- [dao] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-14T12:39:47.053+05:30  INFO 2311 --- [dao] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-14T12:39:47.247+05:30  INFO 2311 --- [dao] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-14T12:39:47.462+05:30  INFO 2311 --- [dao] [main] o.s.a.v.pgvector.PgVectorStore           : Using the vector table name: vector_store. Is empty: false
+2026-03-14T12:39:47.464+05:30  INFO 2311 --- [dao] [main] o.s.a.v.pgvector.PgVectorStore           : Initializing PGVectorStore schema for table: vector_store in schema: public
+2026-03-14T12:39:47.464+05:30  INFO 2311 --- [dao] [main] o.s.a.v.pgvector.PgVectorStore           : vectorTableValidationsEnabled false
+2026-03-14T12:39:51.907+05:30  WARN 2311 --- [dao] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-14T12:39:52.047+05:30  INFO 2311 --- [dao] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-03-14T12:39:52.052+05:30  INFO 2311 --- [dao] [main] c.d.dao.DaoApplication                   : Started DaoApplication in 6.891 seconds (process running for 7.115)
+2026-03-14T12:39:52.175+05:30  INFO 2311 --- [dao] [main] c.d.d.s.RestoringAgentsOnStartup         : Found existing vector store for agent agent_rgpv_8th_sem_syllabus_qa. Attaching advisor.
+2026-03-14T12:39:53.339+05:30  INFO 2311 --- [dao] [main] o.s.a.v.pgvector.PgVectorStore           : Using the vector table name: agent_rgpv_8th_sem_syllabus_qa. Is empty: false
+2026-03-14T12:39:53.339+05:30  INFO 2311 --- [dao] [main] c.d.d.s.RestoringAgentsOnStartup         : Successfully restored agent: agent_rgpv_8th_sem_syllabus_qa
+2026-03-14T12:39:53.340+05:30  INFO 2311 --- [dao] [main] c.d.d.s.RestoringAgentsOnStartup         : Found existing vector store for agent agent_sales_data_inquiry. Attaching advisor.
+2026-03-14T12:39:53.895+05:30  INFO 2311 --- [dao] [main] o.s.a.v.pgvector.PgVectorStore           : Using the vector table name: agent_sales_data_inquiry. Is empty: false
+2026-03-14T12:39:53.896+05:30  INFO 2311 --- [dao] [main] c.d.d.s.RestoringAgentsOnStartup         : Successfully restored agent: agent_sales_data_inquiry
+2026-03-14T12:40:26.888+05:30  INFO 2311 --- [dao] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-14T12:40:26.889+05:30  INFO 2311 --- [dao] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-03-14T12:40:26.890+05:30  INFO 2311 --- [dao] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-03-14T12:46:43.944+05:30  INFO 2311 --- [dao] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-14T12:46:45.953+05:30  INFO 2311 --- [dao] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-14T12:46:45.958+05:30  INFO 2311 --- [dao] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-14T12:46:45.962+05:30  INFO 2311 --- [dao] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-03-14T12:46:45.964+05:30  INFO 2311 --- [dao] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

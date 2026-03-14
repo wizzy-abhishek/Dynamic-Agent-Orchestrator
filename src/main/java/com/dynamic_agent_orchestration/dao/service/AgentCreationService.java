@@ -22,7 +22,6 @@ import org.springframework.ai.document.Document;
 import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.core.io.Resource;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -40,15 +39,16 @@ public class AgentCreationService {
     private final VectorStoreFactory vectorStoreFactory;
     private final Map<String, EmbeddingModel> embeddingModels;
     private final PromptRefineryService promptRefineryService;
-    private final DocumentIngestionToRAGService documentIngestionToRAGService;
     private final ProvideChatModelService provideChatModelService;
+    private final DocumentIngestionToRAGService documentIngestionToRAGService;
 
     public AgentCreationService(
-            AgentRepository agentRepository, VectorStoreFactory vectorStoreFactory,
+            AgentRepository agentRepository,
+            VectorStoreFactory vectorStoreFactory,
             Map<String, EmbeddingModel> embeddingModels,
-            JdbcTemplate jdbcTemplate,
             PromptRefineryService promptRefineryService,
-            DocumentIngestionToRAGService documentIngestionToRAGService, ProvideChatModelService provideChatModelService) {
+            ProvideChatModelService provideChatModelService,
+            DocumentIngestionToRAGService documentIngestionToRAGService) {
 
         this.agentRepository = agentRepository;
         this.vectorStoreFactory = vectorStoreFactory;
@@ -61,18 +61,8 @@ public class AgentCreationService {
     public String assembleAgents(UserRequestDTO userRequestDTO, MultipartFile file) {
 
         ChatModel modelUsedInAgent = provideChatModelService.resolveModel(userRequestDTO.getModelName());
-        String file_abstract = "";
 
-        if (userRequestDTO.getAttachFile() && file != null && !file.isEmpty()) {
-            try {
-                file_abstract = "The file contains " + documentIngestionToRAGService.extractAbstract(file.getResource());
-            } catch (Exception e) {
-                log.error("Failed to extract file abstract", e);
-                return "Error: Failed to read the attached file.";
-            }
-        }
-
-        String refinedPrompt = promptRefineryService.refineUserDescription(userRequestDTO.getAgentTask() + file_abstract);
+        String refinedPrompt = promptRefineryService.refineUserDescription(userRequestDTO.getAgentTask());
         String appropriateAgentName = promptRefineryService.generateAgentName(refinedPrompt);
         String llmName = modelUsedInAgent.getClass().getSimpleName();
 

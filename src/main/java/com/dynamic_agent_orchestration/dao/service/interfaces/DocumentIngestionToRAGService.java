@@ -6,8 +6,6 @@ import org.springframework.core.io.Resource;
 import java.util.List;
 
 public interface DocumentIngestionToRAGService {
-
-    String extractAbstract(Resource resource);
     List<Document> processAndSplitDocument(Resource resource);
 
 }

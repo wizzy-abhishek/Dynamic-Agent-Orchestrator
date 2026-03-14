@@ -17,25 +17,39 @@ public class DocumentIngestionToRAGServiceImpl implements DocumentIngestionToRAG
 
     private final Logger log = LoggerFactory.getLogger(DocumentIngestionToRAGServiceImpl.class);
 
-    public String extractAbstract(Resource resource) {
-        TikaDocumentReader reader = new TikaDocumentReader(resource);
-        List<Document> documents = reader.get();
+    private Document cleanDocumentText(Document doc) {
+        String text = doc.getText();
 
-        String fullText = documents.stream()
-                .map(Document::getText)
-                .collect(Collectors.joining("\n"));
+        if (text != null) {
+            text = text.replaceAll("[^\\x20-\\x7E\\t\\n\\r]", "");
+            text = text.replaceAll(" {3,}", " ");
+            text = text.replaceAll("\\n{3,}", "\n\n");
+            text = text.replaceAll("\\n(?=[a-z])", " ");
+        }
 
-        return fullText.substring(0, Math.min(fullText.length(), 4000));
+        return new Document(text, doc.getMetadata());
     }
 
     public List<Document> processAndSplitDocument(Resource resource) {
         try {
             log.info("Parsing and chunking document: {}", resource.getFilename());
             TikaDocumentReader documentReader = new TikaDocumentReader(resource);
-            List<Document> documents = documentReader.get();
+            List<Document> rawDocuments = documentReader.get();
 
-            TokenTextSplitter tokenSplitter = new TokenTextSplitter();
-            return tokenSplitter.apply(documents);
+            List<Document> cleanedDocuments = rawDocuments.stream()
+                    .map(this::cleanDocumentText)
+                    .collect(Collectors.toList());
+
+            List<Character> splitBoundaries = List.of('.', '!', '?', '\n');
+
+            TokenTextSplitter tokenSplitter = new TokenTextSplitter(800,
+                    300,
+                    5,
+                    10000,
+                    true,
+                    splitBoundaries);
+
+            return tokenSplitter.apply(cleanedDocuments);
         } catch (Exception e) {
             log.error("Failed to process and split document: {}", resource.getFilename(), e);
             throw new RuntimeException("Failed to process document into chunks", e);
